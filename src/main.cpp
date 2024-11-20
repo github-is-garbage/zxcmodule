@@ -636,6 +636,23 @@ LUA_FUNCTION(NetDisconnect) {
 	return 1;
 }
 
+LUA_FUNCTION(NetSendMessage)
+{
+	const char* str = LUA->CheckString(1);
+
+	INetChannel* netChan = interfaces::engineClient->GetNetChannel();
+
+	uint8_t msgBuf[1024];
+
+	NetMessageWriteable netMsg(NetMessage::net_Disconnect, msgBuf, sizeof(msgBuf));
+	netMsg.write.WriteUInt(static_cast<uint32_t>(NetMessage::net_StringCmd), NET_MESSAGE_BITS);
+	netMsg.write.WriteString(str);
+
+	netChan->SendNetMsg(netMsg, true);
+
+	return 1;
+}
+
 LUA_FUNCTION(RequestFile) {
 	LUA->CheckString(1);
 
@@ -1109,6 +1126,7 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("RequestFile", RequestFile);
 		PushApiFunction("NetDisconnect", NetDisconnect);
 		PushApiFunction("NetSetConVar", NetSetConVar);	
+		PushApiFunction("NetSendMessage", NetSendMessage);
 
 		PushApiFunction("PushSpecial", PushSpecial);
 	LUA->SetField(-2, "ded");
