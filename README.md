@@ -20,128 +20,128 @@ ded.SetSequenceInterpolation(false)
 ```
 
 ### Lua API
-ServerCmd
-ClientCmd
-SetViewAngles
-ExecuteClientCmd
-RawClientCmdUnrestricted
-ClientCmdUnrestricted
-SetRestrictServerCommands
-SetRestrictClientCommands
-GetGameDirectory
-GetLocalPlayer
-GetTime
-GetLastTimeStamp
-IsBoxVisible
-IsBoxInViewCluster
-IsOccluded
-GetLastCommandAck
-GetLastOutgoingCommand
-SetLastOutgoingCommand
-GetChokedCommands
-SetChokedCommands
-GetPreviousTick
-GetCurTime
-SetCurTime
-GetFrameTime
-SetFrameTime
-GetRealTime
-SetRealTime
-GetFrameCount
-SetFrameCount
-GetAbsFrameTime
-SetAbsFrameTime
-GetInterpoloationAmount
-SetInterpoloationAmount
-ConVarSetValue
-ConVarSetFlags
-SpoofConVar
-SpoofedConVarSetNumber
-SetCommandNumber
-SetCommandTick
-SetTyping
-SetContextVector
-GetRandomSeed
-SetRandomSeed
-PredictSpread
-GetServerTime
-StartPrediction
-FinishPrediction
-StartSimulation
-SimulateTick
-GetSimulationData
-FinishSimulation
-EditSimulationData
-SetBSendPacket
-SetInterpolation
-SetSequenceInterpolation
-EnableBoneFix
-EnableAnimFix
-AllowAnimationUpdate
-EnableTickbaseShifting
-StartShifting
-EnableSlowmotion
-StartRecharging
-SetMissedTicks
-SetMinShift
-SetMaxShift
-GetCurrentCharge
-GetIsShifting
-GetIsCharging
-ExcludeFromCapture
-GetNetworkedVar
-SetEntityFlags
-UpdateAnimations
-UpdateClientAnimation
-SetCurrentLowerBodyYaw
-SetTargetLowerBodyYaw
-GetCurrentLowerBodyYaw
-GetTargetLowerBodyYaw
-GetSimulationTime
-GetNetName
-GetNetAdress
-GetNetTime
-GetNetTimeConnected
-GetNetBufferSize
-GetNetDataRate
-GetIsLoopback
-GetIsTimingOut
-SetOutSequenceNr
-SetTimeout
-NetShutdownStr
-SetMaxRoutablePayloadSize
-GetOutSequenceNr
-SetRemoteFramerate
-SetInterpolationAmount
-SetCompressionMode
-SetInSequenceNr
-SetChallengeNr
-SetDataRate
-GetPacketBytes
-GetInSequenceNr
-GetPacketTime
-IsValidPacket
-GetOutSequenceNrAck
-SetOutSequenceNrAck
-SetNetChokedPackets
-GetNetChokedPackets
-SetPacketDrop
-SetOutReliableState
-GetOutReliableState
-GetPacketDrop
-SetInReliableState
-GetInReliableState
-GetSequenceNrFlow
-GetTotalData
-GetAvgPackets
-GetAvgData
-GetAvgChoke
-GetAvgLoss
-GetAvgLatency
-GetLatency
-SendFile
-RequestFile
-NetDisconnect
-NetSetConVar
-NetSendMessage
-PushSpecial
+- ServerCmd
+- ClientCmd
+- SetViewAngles
+- ExecuteClientCmd
+- RawClientCmdUnrestricted
+- ClientCmdUnrestricted
+- SetRestrictServerCommands
+- SetRestrictClientCommands
+- GetGameDirectory
+- GetLocalPlayer
+- GetTime
+- GetLastTimeStamp
+- IsBoxVisible
+- IsBoxInViewCluster
+- IsOccluded
+- GetLastCommandAck
+- GetLastOutgoingCommand
+- SetLastOutgoingCommand
+- GetChokedCommands
+- SetChokedCommands
+- GetPreviousTick
+- GetCurTime
+- SetCurTime
+- GetFrameTime
+- SetFrameTime
+- GetRealTime
+- SetRealTime
+- GetFrameCount
+- SetFrameCount
+- GetAbsFrameTime
+- SetAbsFrameTime
+- GetInterpoloationAmount
+- SetInterpoloationAmount
+- ConVarSetValue
+- ConVarSetFlags
+- SpoofConVar
+- SpoofedConVarSetNumber
+- SetCommandNumber
+- SetCommandTick
+- SetTyping
+- SetContextVector
+- GetRandomSeed
+- SetRandomSeed
+- PredictSpread
+- GetServerTime
+- StartPrediction
+- FinishPrediction
+- StartSimulation
+- SimulateTick
+- GetSimulationData
+- FinishSimulation
+- EditSimulationData
+- SetBSendPacket
+- SetInterpolation
+- SetSequenceInterpolation
+- EnableBoneFix
+- EnableAnimFix
+- AllowAnimationUpdate
+- EnableTickbaseShifting
+- StartShifting
+- EnableSlowmotion
+- StartRecharging
+- SetMissedTicks
+- SetMinShift
+- SetMaxShift
+- GetCurrentCharge
+- GetIsShifting
+- GetIsCharging
+- ExcludeFromCapture
+- GetNetworkedVar
+- SetEntityFlags
+- UpdateAnimations
+- UpdateClientAnimation
+- SetCurrentLowerBodyYaw
+- SetTargetLowerBodyYaw
+- GetCurrentLowerBodyYaw
+- GetTargetLowerBodyYaw
+- GetSimulationTime
+- GetNetName
+- GetNetAdress
+- GetNetTime
+- GetNetTimeConnected
+- GetNetBufferSize
+- GetNetDataRate
+- GetIsLoopback
+- GetIsTimingOut
+- SetOutSequenceNr
+- SetTimeout
+- NetShutdownStr
+- SetMaxRoutablePayloadSize
+- GetOutSequenceNr
+- SetRemoteFramerate
+- SetInterpolationAmount
+- SetCompressionMode
+- SetInSequenceNr
+- SetChallengeNr
+- SetDataRate
+- GetPacketBytes
+- GetInSequenceNr
+- GetPacketTime
+- IsValidPacket
+- GetOutSequenceNrAck
+- SetOutSequenceNrAck
+- SetNetChokedPackets
+- GetNetChokedPackets
+- SetPacketDrop
+- SetOutReliableState
+- GetOutReliableState
+- GetPacketDrop
+- SetInReliableState
+- GetInReliableState
+- GetSequenceNrFlow
+- GetTotalData
+- GetAvgPackets
+- GetAvgData
+- GetAvgChoke
+- GetAvgLoss
+- GetAvgLatency
+- GetLatency
+- SendFile
+- RequestFile
+- NetDisconnect
+- NetSetConVar
+- NetSendMessage
+- PushSpecial
