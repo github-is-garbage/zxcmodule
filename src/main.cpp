@@ -1129,7 +1129,7 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("NetSendMessage", NetSendMessage);
 
 		PushApiFunction("PushSpecial", PushSpecial);
-	LUA->SetField(-2, "ded");
+	LUA->SetField(-2, "idiotbox");
 
 	return 0;
 }
