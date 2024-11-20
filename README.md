@@ -1,9 +1,6 @@
 # About
 Cheat module for Garry's Mod (x64, Client-state)
-Author: https://github.com/D3D9C
-
-New module, now works in Menu-state!
-https://github.com/D3D9C/sublime-x64
+Author: D3D9C
 
 ## Code example
 ```
