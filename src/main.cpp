@@ -494,33 +494,33 @@ LUA_FUNCTION_GETTER(GetIsShifting, Bool, globals::bIsShifting);
 LUA_FUNCTION_GETTER(GetIsCharging, Bool, globals::bIsRecharging);
 
 // Win API
-LUA_FUNCTION(GetClipboardText) {
-	if (!OpenClipboard(nullptr)) {
-		LUA->PushBool(false);
-		return 1;
-	}
-
-	HANDLE clipboardHandle = GetClipboardData(CF_TEXT);
-	if (clipboardHandle == nullptr) {
-		CloseClipboard();
-		LUA->PushBool(false);
-		return 1;
-	}
-
-	char* clipboardText = static_cast<char*>(GlobalLock(clipboardHandle));
-	if (clipboardText == nullptr) {
-		CloseClipboard();
-		LUA->PushBool(false);
-		return 1;
-	}
-
-	LUA->PushString(clipboardText);
-
-	GlobalUnlock(clipboardHandle);
-	CloseClipboard();
-
-	return 1;
-}
+//LUA_FUNCTION(GetClipboardText) {
+//	if (!OpenClipboard(nullptr)) {
+//		LUA->PushBool(false);
+//		return 1;
+//	}
+//
+//	HANDLE clipboardHandle = GetClipboardData(CF_TEXT);
+//	if (clipboardHandle == nullptr) {
+//		CloseClipboard();
+//		LUA->PushBool(false);
+//		return 1;
+//	}
+//
+//	char* clipboardText = static_cast<char*>(GlobalLock(clipboardHandle));
+//	if (clipboardText == nullptr) {
+//		CloseClipboard();
+//		LUA->PushBool(false);
+//		return 1;
+//	}
+//
+//	LUA->PushString(clipboardText);
+//
+//	GlobalUnlock(clipboardHandle);
+//	CloseClipboard();
+//
+//	return 1;
+//}
 
 LUA_FUNCTION(ExcludeFromCapture) {
 	LUA->CheckType(1, Type::Bool);
@@ -539,60 +539,60 @@ LUA_FUNCTION(ExcludeFromCapture) {
 }
 
 // File 
-LUA_FUNCTION(Read) {
-	LUA->CheckString(1);
-	
-	const char* path = LUA->GetString();
-	std::ifstream file;
-	file.open(path, std::ios_base::binary | std::ios_base::ate);
-	if (!file.good()) {
-		LUA->PushBool(false);
-		return 1;
-	}
-
-	auto fileSize = file.tellg();
-
-	// Prevent heap corruption
-	if (fileSize == 0) {
-		LUA->PushBool(true);
-		LUA->PushString("");
-		return 2;
-	}
-
-	char* buffer = new char[fileSize] {0};
-	file.seekg(std::ios::beg);
-	file.read(buffer, fileSize);
-	file.close();
-
-	LUA->PushBool(true);
-	LUA->PushString(buffer, fileSize);
-
-	delete[] buffer;
-
-	return 2;
-}
-
-LUA_FUNCTION(Write) {
-	LUA->CheckString(1);
-	LUA->CheckString(2);
-
-	const char* path = LUA->GetString(1);
-	std::ofstream file;
-	file.open(path, std::ios_base::binary);
-	if (!file.good()) {
-		LUA->PushBool(false);
-		return 1;
-	}
-
-	unsigned int dataSize = 0;
-	const char* data = LUA->GetString(2, &dataSize);
-	file.write(data, dataSize);
-	file.close();
-
-	LUA->PushBool(true);
-
-	return 1;
-}
+//LUA_FUNCTION(Read) {
+//	LUA->CheckString(1);
+//	
+//	const char* path = LUA->GetString();
+//	std::ifstream file;
+//	file.open(path, std::ios_base::binary | std::ios_base::ate);
+//	if (!file.good()) {
+//		LUA->PushBool(false);
+//		return 1;
+//	}
+//
+//	auto fileSize = file.tellg();
+//
+//	// Prevent heap corruption
+//	if (fileSize == 0) {
+//		LUA->PushBool(true);
+//		LUA->PushString("");
+//		return 2;
+//	}
+//
+//	char* buffer = new char[fileSize] {0};
+//	file.seekg(std::ios::beg);
+//	file.read(buffer, fileSize);
+//	file.close();
+//
+//	LUA->PushBool(true);
+//	LUA->PushString(buffer, fileSize);
+//
+//	delete[] buffer;
+//
+//	return 2;
+//}
+//
+//LUA_FUNCTION(Write) {
+//	LUA->CheckString(1);
+//	LUA->CheckString(2);
+//
+//	const char* path = LUA->GetString(1);
+//	std::ofstream file;
+//	file.open(path, std::ios_base::binary);
+//	if (!file.good()) {
+//		LUA->PushBool(false);
+//		return 1;
+//	}
+//
+//	unsigned int dataSize = 0;
+//	const char* data = LUA->GetString(2, &dataSize);
+//	file.write(data, dataSize);
+//	file.close();
+//
+//	LUA->PushBool(true);
+//
+//	return 1;
+//}
 
 
 // NetChannel
@@ -1065,11 +1065,11 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("GetIsShifting", GetIsShifting);
 		PushApiFunction("GetIsCharging", GetIsCharging);
 
-		PushApiFunction("GetClipboardText", GetClipboardText);
+		/*PushApiFunction("GetClipboardText", GetClipboardText);*/
 		PushApiFunction("ExcludeFromCapture", ExcludeFromCapture);
 
-		PushApiFunction("Read", Read);
-		PushApiFunction("Write", Write);
+		/*PushApiFunction("Read", Read);
+		PushApiFunction("Write", Write);*/
 
 		PushApiFunction("GetNetworkedVar", GetNetworkedVar);
 		PushApiFunction("SetEntityFlags", SetEntityFlags);
