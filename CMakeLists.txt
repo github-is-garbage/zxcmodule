@@ -8,7 +8,7 @@ set(CMAKE_GENERATOR_PLATFORM x64)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-include_directories("includes")
+include_directories("include")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
