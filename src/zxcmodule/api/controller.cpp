@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "../globals.h"
 
 APIController::APIController()
 {
@@ -12,12 +13,38 @@ void APIController::AddAPI(API* pAPI)
 
 void APIController::Init()
 {
-	for (API* pAPI : this->apiList)
-		pAPI->Init();
+	GarrysMod::Lua::ILuaInterface* pGlobalLua = pGlobals->pLuaInterface;
+
+	pGlobalLua->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
+	{
+		pGlobalLua->PushString("zxcmodule");
+		pGlobalLua->CreateTable();
+		{
+			for (API* pAPI : this->apiList)
+				pAPI->Init();
+		}
+		pGlobalLua->RawSet(-3);
+	}
+	pGlobalLua->Pop();
 }
 
 void APIController::UnInit()
 {
-	for (API* pAPI : this->apiList)
-		pAPI->UnInit();
+	GarrysMod::Lua::ILuaInterface* pGlobalLua = pGlobals->pLuaInterface;
+
+	pGlobalLua->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
+	{
+		pGlobalLua->PushString("zxcmodule");
+		pGlobalLua->RawGet(-2);
+		{
+			for (API* pAPI : this->apiList)
+				pAPI->UnInit();
+		}
+		pGlobalLua->Pop();
+
+		pGlobalLua->PushString("zxcmodule");
+		pGlobalLua->PushNil();
+		pGlobalLua->RawSet(-3);
+	}
+	pGlobalLua->Pop();
 }
