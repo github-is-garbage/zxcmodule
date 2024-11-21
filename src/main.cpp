@@ -1,14 +1,35 @@
 #include <Windows.h>
 #include <iostream>
 
-int main()
+BOOL WINAPI DllMain(
+    HINSTANCE hinstDLL,  // handle to DLL module
+    DWORD fdwReason,     // reason for calling function
+    LPVOID lpvReserved )  // reserved
 {
-	AllocConsole();
+    // Perform actions based on the reason for calling.
+    switch( fdwReason )
+    {
+        case DLL_PROCESS_ATTACH:
+			AllocConsole();
+            break;
 
-	FILE* pFile;
-	freopen_s(&pFile, "CONOUT$", "w", stdout);
+        case DLL_THREAD_ATTACH:
+         // Do thread-specific initialization.
+            break;
 
-	std::cout << "Hello!" << std::endl;
+        case DLL_THREAD_DETACH:
+         // Do thread-specific cleanup.
+            break;
 
-	return 0;
+        case DLL_PROCESS_DETACH:
+
+            if (lpvReserved != nullptr)
+            {
+                break; // do not do cleanup if process termination scenario
+            }
+
+         // Perform any necessary cleanup.
+            break;
+    }
+    return TRUE;  // Successful DLL_PROCESS_ATTACH.
 }
