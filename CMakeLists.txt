@@ -9,14 +9,23 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 include_directories("includes")
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
+
+set_target_properties(
+	${PROJECT_NAME} PROPERTIES
+
+	OUTPUT_NAME "gmcl_zxcmodule_win64"
+	PREFIX ""
+)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(${PROJECT_NAME} PRIVATE DEBUG)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE DEBUG)
 endif()
 
-install(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION bin)
+install(
+	TARGETS ${PROJECT_NAME}
+	RUNTIME DESTINATION bin
+)
 
 message(STATUS "Project Name: ${PROJECT_NAME}")
 message(STATUS "Project Version: ${PROJECT_VERSION}")
