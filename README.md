@@ -1,6 +1,7 @@
 # About
 Cheat module for Garry's Mod (x64, Client-state)
-Author: D3D9C
+
+Original author: D3D9C
 
 ## Code example
 ```
