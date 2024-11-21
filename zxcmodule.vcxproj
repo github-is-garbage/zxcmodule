@@ -80,6 +80,7 @@
     <ClInclude Include="src\varmap.h" />
     <ClInclude Include="src\vector.h" />
     <ClInclude Include="src\viewrenderhook.h" />
+    <ClInclude Include="src\vmatrix.h" />
     <ClInclude Include="src\vmt.h" />
     <ClInclude Include="src\vstdlib.h" />
   </ItemGroup>

@@ -25,12 +25,13 @@ using namespace GarrysMod::Lua;
 #include "interfaces.h"
 #include "cliententitylist.h"
 #include "entity.h"
- 
+#include "vmatrix.h"
+
 #include "hooks.h"
 
 std::vector<std::unique_ptr<SpoofedConVar>> spoofedConVars;
 
-// Engine client 
+// Engine client
 LUA_FUNCTION(ServerCmd) {
 	LUA->CheckString(1);
 	LUA->CheckType(2, Type::Bool);
@@ -147,13 +148,50 @@ LUA_FUNCTION(IsOccluded) {
 	return 1;
 }
 
+LUA_FUNCTION(WorldToScreen)
+{
+	LUA->CheckType(1, GarrysMod::Lua::Type::Vector);
+
+	Vector vWorldPos = LUA->GetVector(1);
+
+	// https://github.com/lua9520/source-engine-2018-hl2_src/blob/master/game/client/view_scene.cpp#L55
+	const VMatrix& vmWorldToScreen = interfaces::engineClient->WorldToScreenMatrix();
+
+	float x = vmWorldToScreen[0][0] * vWorldPos.x + vmWorldToScreen[0][1] * vWorldPos.y + vmWorldToScreen[0][2] * vWorldPos.z + vmWorldToScreen[0][3];
+	float y = vmWorldToScreen[1][0] * vWorldPos.x + vmWorldToScreen[1][1] * vWorldPos.y + vmWorldToScreen[1][2] * vWorldPos.z + vmWorldToScreen[1][3];
+	// z = vmWorldToScreen[2][0] * vWorldPos.x + vmWorldToScreen[2][1] * vWorldPos.y + vmWorldToScreen[2][2] * vWorldPos.z + vmWorldToScreen[2][3];
+
+	float flWidth = vmWorldToScreen[3][0] * vWorldPos.x + vmWorldToScreen[3][1] * vWorldPos.y + vmWorldToScreen[3][2] * vWorldPos.z + vmWorldToScreen[3][3];
+
+	if (flWidth >= 0.001f)
+	{
+		float flInvWidth = 1.0f / flWidth;
+
+		x *= flInvWidth;
+		y *= flInvWidth;
+	}
+
+	// Adjust to screen proportion
+	// https://github.com/lua9520/source-engine-2018-hl2_src/blob/master/game/client/cdll_util.cpp#L523
+	int ScreenW, ScreenH;
+	interfaces::engineClient->GetScreenSize(ScreenW, ScreenH);
+
+	x = (ScreenW * 0.5) + (x * 0.5 * ScreenW);
+	y = (ScreenH * 0.5) - (y * 0.5 * ScreenH);
+
+	LUA->PushNumber(x);
+	LUA->PushNumber(y);
+
+	return 2;
+}
+
 // ClientState
 LUA_FUNCTION_GETSET(LastCommandAck, Number, interfaces::clientState->last_command_ack);
 LUA_FUNCTION_GETSET(LastOutgoingCommand, Number, interfaces::clientState->lastoutgoingcommand);
 LUA_FUNCTION_GETSET(ChokedCommands, Number, interfaces::clientState->chokedcommands);
 LUA_FUNCTION_GETTER(GetPreviousTick, Number, interfaces::clientState->oldtickcount);
 
-// GlobalVars 
+// GlobalVars
 LUA_FUNCTION_GETSET(CurTime, Number, interfaces::globalVars->curtime);
 LUA_FUNCTION_GETSET(FrameTime, Number, interfaces::globalVars->frametime);
 LUA_FUNCTION_GETSET(RealTime, Number, interfaces::globalVars->realtime);
@@ -161,7 +199,7 @@ LUA_FUNCTION_GETSET(FrameCount, Number, interfaces::globalVars->framecount);
 LUA_FUNCTION_GETSET(AbsFrameTime, Number, interfaces::globalVars->absoluteframetime);
 LUA_FUNCTION_GETSET(InterpolationAmount, Number, interfaces::globalVars->interpolation_amount);
 
-// ConVar 
+// ConVar
 LUA_FUNCTION(ConVarSetValue) {
 	LUA->CheckString(1);
 	LUA->CheckNumber(2);
@@ -232,7 +270,7 @@ LUA_FUNCTION(SpoofedConVarSetNumber) {
 	return 1;
 }
 
-// CUserCmd 
+// CUserCmd
 LUA_FUNCTION(SetCommandNumber) {
 	LUA->CheckType(1, Type::UserCmd);
 	LUA->CheckNumber(2);
@@ -368,7 +406,7 @@ LUA_FUNCTION(PredictSpread) {
 	return 1;
 }
 
-// Prediction 
+// Prediction
 LUA_FUNCTION(GetServerTime) {
 	LUA->CheckType(1, Type::UserCmd);
 
@@ -392,7 +430,7 @@ LUA_FUNCTION(FinishPrediction) {
 	return 0;
 }
 
-// Simulation 
+// Simulation
 LUA_FUNCTION(StartSimulation) {
 	LUA->CheckNumber(1);
 
@@ -473,7 +511,7 @@ LUA_FUNCTION(EditSimulationData) {
 	return 0;
 }
 
-// Globals 
+// Globals
 LUA_FUNCTION_BSETTER(SetBSendPacket, globals::bSendPacket);
 LUA_FUNCTION_BSETTER(SetShouldInterpolate, globals::shouldInterpolate);
 LUA_FUNCTION_BSETTER(SetSequenceInterpolation, globals::shouldInterpolateSequences);
@@ -538,10 +576,10 @@ LUA_FUNCTION(ExcludeFromCapture) {
 	return 1;
 }
 
-// File 
+// File
 //LUA_FUNCTION(Read) {
 //	LUA->CheckString(1);
-//	
+//
 //	const char* path = LUA->GetString();
 //	std::ifstream file;
 //	file.open(path, std::ios_base::binary | std::ios_base::ate);
@@ -625,10 +663,10 @@ LUA_FUNCTION(NetDisconnect) {
 	INetChannel* netChan = interfaces::engineClient->GetNetChannel();
 
 	uint8_t msgBuf[1024];
-	 
+
 	NetMessageWriteable netMsg(NetMessage::net_Disconnect, msgBuf, sizeof(msgBuf));
 	netMsg.write.WriteUInt(static_cast<uint32_t>(NetMessage::net_Disconnect), NET_MESSAGE_BITS);
-	netMsg.write.WriteByte(1); 
+	netMsg.write.WriteByte(1);
 	netMsg.write.WriteString(str);
 
 	netChan->SendNetMsg(netMsg, true);
@@ -662,7 +700,7 @@ LUA_FUNCTION(RequestFile) {
 	netChan->RequestFile(str);
 
 	return 1;
-} 
+}
 
 LUA_FUNCTION(SendFile) {
 	LUA->CheckString(1);
@@ -734,7 +772,7 @@ LUA_FUNCTION(GetTotalData) {
 	LUA->PushNumber(interfaces::engineClient->GetNetChannel()->GetTotalData(LUA->GetNumber(1)));
 
 	return 1;
-} 
+}
 
 LUA_FUNCTION(GetSequenceNrFlow) {
 	LUA->CheckNumber(1);
@@ -856,7 +894,7 @@ LUA_FUNCTION_GETSET(PacketDrop, Number, interfaces::engineClient->GetNetChannel(
 LUA_FUNCTION_GETSET(OutReliableState, Number, interfaces::engineClient->GetNetChannel()->m_nOutReliableState);
 LUA_FUNCTION_GETSET(InReliableState, Number, interfaces::engineClient->GetNetChannel()->m_nInReliableState);
 
-// Entity 
+// Entity
 LUA_FUNCTION(GetNetworkedVar) {
 	LUA->CheckNumber(1);
 	LUA->CheckString(2);
@@ -876,13 +914,13 @@ LUA_FUNCTION(GetSimulationTime) {
 	LUA->CheckNumber(1);
 
 	CBasePlayer* Ply = reinterpret_cast<CBasePlayer*>(interfaces::entityList->GetClientEntity(LUA->GetNumber(1)));
-	
+
 	LUA->PushNumber(Ply->m_flSimulationTime());
 
 	return 1;
 }
 
-LUA_FUNCTION(GetTargetLowerBodyYaw) { 
+LUA_FUNCTION(GetTargetLowerBodyYaw) {
 	LUA->CheckNumber(1);
 
 	CBasePlayer* Ply = reinterpret_cast<CBasePlayer*>(interfaces::entityList->GetClientEntity(LUA->GetNumber(1)));
@@ -960,7 +998,7 @@ LUA_FUNCTION(SetEntityFlags) {
 	return 0;
 }
 
-// Legacy 
+// Legacy
 
 LUA_FUNCTION(PushSpecial) {
 	LUA->CheckNumber(1);
@@ -979,7 +1017,7 @@ auto PushApiFunction = [&](const char* name, CFunc func) {
 };
 
 GMOD_MODULE_OPEN() {
-	 
+
 	luaBase = LUA;
 
 	interfaces::init();
@@ -1004,6 +1042,7 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("IsBoxVisible", IsBoxVisible);
 		PushApiFunction("IsBoxInViewCluster", IsBoxInViewCluster);
 		PushApiFunction("IsOccluded", IsOccluded);
+		PushApiFunction("WorldToScreen", WorldToScreen);
 
 		PushApiFunction("GetLastCommandAck", GetLastCommandAck);
 		PushApiFunction("GetLastOutgoingCommand", GetLastOutgoingCommand);
@@ -1125,7 +1164,7 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("SendFile", SendFile);
 		PushApiFunction("RequestFile", RequestFile);
 		PushApiFunction("NetDisconnect", NetDisconnect);
-		PushApiFunction("NetSetConVar", NetSetConVar);	
+		PushApiFunction("NetSetConVar", NetSetConVar);
 		PushApiFunction("NetSendMessage", NetSendMessage);
 
 		PushApiFunction("PushSpecial", PushSpecial);
@@ -1140,4 +1179,3 @@ GMOD_MODULE_CLOSE() {
 
 	return 0;
 }
-
