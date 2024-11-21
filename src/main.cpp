@@ -1,6 +1,6 @@
-#include "globals.h"
 #include <GarrysMod/Lua/Interface.h>
 #include <GarrysMod/Lua/LuaInterface.h>
+#include "zxcmodule/globals.h"
 
 GMOD_MODULE_OPEN()
 {
