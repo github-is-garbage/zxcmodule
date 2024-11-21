@@ -159,7 +159,7 @@ LUA_FUNCTION_GETSET(FrameTime, Number, interfaces::globalVars->frametime);
 LUA_FUNCTION_GETSET(RealTime, Number, interfaces::globalVars->realtime);
 LUA_FUNCTION_GETSET(FrameCount, Number, interfaces::globalVars->framecount);
 LUA_FUNCTION_GETSET(AbsFrameTime, Number, interfaces::globalVars->absoluteframetime);
-LUA_FUNCTION_GETSET(InterpoloationAmount, Number, interfaces::globalVars->interpolation_amount);
+LUA_FUNCTION_GETSET(InterpolationAmount, Number, interfaces::globalVars->interpolation_amount);
 
 // ConVar 
 LUA_FUNCTION(ConVarSetValue) {
@@ -475,7 +475,7 @@ LUA_FUNCTION(EditSimulationData) {
 
 // Globals 
 LUA_FUNCTION_BSETTER(SetBSendPacket, globals::bSendPacket);
-LUA_FUNCTION_BSETTER(SetInterpolation, globals::shouldInterpolate);
+LUA_FUNCTION_BSETTER(SetShouldInterpolate, globals::shouldInterpolate);
 LUA_FUNCTION_BSETTER(SetSequenceInterpolation, globals::shouldInterpolateSequences);
 LUA_FUNCTION_BSETTER(EnableBoneFix, globals::shouldFixBones);
 LUA_FUNCTION_BSETTER(EnableAnimFix, globals::shouldFixAnimations);
@@ -796,7 +796,7 @@ LUA_FUNCTION(SetCompressionMode) {
 	return 0;
 }
 
-LUA_FUNCTION(SetInterpolationAmount) {
+LUA_FUNCTION(SetNetInterpolationAmount) {
 	LUA->CheckNumber(1);
 
 	interfaces::engineClient->GetNetChannel()->SetInterpolationAmount(LUA->GetNumber(1));
@@ -1022,8 +1022,8 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("SetFrameCount", SetFrameCount);
 		PushApiFunction("GetAbsFrameTime", GetAbsFrameTime);
 		PushApiFunction("SetAbsFrameTime", SetAbsFrameTime);
-		PushApiFunction("GetInterpoloationAmount", GetInterpoloationAmount);
-		PushApiFunction("SetInterpoloationAmount", SetInterpoloationAmount);
+		PushApiFunction("GetInterpolationAmount", GetInterpolationAmount);
+		PushApiFunction("SetInterpolationAmount", SetInterpolationAmount);
 
 		PushApiFunction("ConVarSetValue", ConVarSetValue);
 		PushApiFunction("ConVarSetFlags", ConVarSetFlags);
@@ -1049,7 +1049,7 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("EditSimulationData", EditSimulationData);
 
 		PushApiFunction("SetBSendPacket", SetBSendPacket);
-		PushApiFunction("SetInterpolation", SetInterpolation);
+		PushApiFunction("SetShouldInterpolate", SetShouldInterpolate);
 		PushApiFunction("SetSequenceInterpolation", SetSequenceInterpolation);
 		PushApiFunction("EnableBoneFix", EnableBoneFix);
 		PushApiFunction("EnableAnimFix", EnableAnimFix);
@@ -1095,7 +1095,7 @@ GMOD_MODULE_OPEN() {
 		PushApiFunction("SetMaxRoutablePayloadSize", SetMaxRoutablePayloadSize);
 		PushApiFunction("GetOutSequenceNr", GetOutSequenceNr);
 		PushApiFunction("SetRemoteFramerate", SetRemoteFramerate);
-		PushApiFunction("SetInterpolationAmount", SetInterpolationAmount);
+		PushApiFunction("SetNetInterpolationAmount", SetNetInterpolationAmount);
 		PushApiFunction("SetCompressionMode", SetCompressionMode);
 		PushApiFunction("SetInSequenceNr", SetInSequenceNr);
 		PushApiFunction("SetChallengeNr", SetChallengeNr);

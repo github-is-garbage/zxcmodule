@@ -48,8 +48,8 @@ ded.SetSequenceInterpolation(false)
 - SetFrameCount
 - GetAbsFrameTime
 - SetAbsFrameTime
-- GetInterpoloationAmount
-- SetInterpoloationAmount
+- GetInterpolationAmount
+- SetInterpolationAmount
 - ConVarSetValue
 - ConVarSetFlags
 - SpoofConVar
@@ -70,7 +70,7 @@ ded.SetSequenceInterpolation(false)
 - FinishSimulation
 - EditSimulationData
 - SetBSendPacket
-- SetInterpolation
+- SetShouldInterpolate
 - SetSequenceInterpolation
 - EnableBoneFix
 - EnableAnimFix
@@ -109,7 +109,7 @@ ded.SetSequenceInterpolation(false)
 - SetMaxRoutablePayloadSize
 - GetOutSequenceNr
 - SetRemoteFramerate
-- SetInterpolationAmount
+- SetNetInterpolationAmount
 - SetCompressionMode
 - SetInSequenceNr
 - SetChallengeNr
