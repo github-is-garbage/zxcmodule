@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GarrysMod/Lua/LuaInterface.h>
+#include "pointers.h"
 #include "api/controller.h"
 
 class zxcmodule
@@ -8,6 +9,7 @@ class zxcmodule
 public:
 	GarrysMod::Lua::ILuaInterface* pLuaInterface;
 
+	Pointers* pPointers;
 	APIController* pAPIController;
 
 public:

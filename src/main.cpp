@@ -7,7 +7,12 @@ GMOD_MODULE_OPEN()
 	pGlobals = new zxcmodule((GarrysMod::Lua::ILuaInterface*)LUA);
 	pGlobals->Init();
 
-	pGlobals->pLuaInterface->Msg("hey\n");
+	int x, y;
+	if (pGlobals->pPointers->pEngineClient)
+	{
+		pGlobals->pPointers->pEngineClient->GetScreenSize(x, y);
+		pGlobals->pLuaInterface->Msg("%u %u\n", x, y);
+	}
 
 	return 0;
 }
