@@ -21,6 +21,8 @@ set_target_properties(
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	target_compile_definitions(${PROJECT_NAME} PRIVATE DEBUG)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_CXX_FLAGS_RELEASE "-Os -s")
 endif()
 
 install(
