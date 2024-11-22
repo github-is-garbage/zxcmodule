@@ -1,0 +1,17 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Attach to Game Process",
+			"type": "cppdbg",
+			"request": "attach",
+			"processId": "${command:pickProcess}",
+			"program": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod\\bin\\win64\\gmod.exe",
+			"stopAtEntry": false,
+			"exceptionBreakpoints": {
+				"cpp_throw": "all",
+				"cpp_catch": "unhandled"
+			}
+		}
+	]
+}
