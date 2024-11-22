@@ -7,7 +7,8 @@
 
 #include "Types.h"
 #include "UserData.h"
-#include "SourceCompat.h"
+#include <Valve/Angle.h>
+#include <Valve/Vector.h>
 
 struct lua_State;
 struct lua_Debug;

@@ -3,7 +3,7 @@
 #include <string>
 
 #include "LuaBase.h"
-#include "SourceCompat.h"
+#include <Valve/Vector.h>
 #include <list>
 
 namespace Bootil
