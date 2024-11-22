@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utility>
 #include <cstdint>
 
 namespace VMT
@@ -9,10 +10,13 @@ namespace VMT
 		return *reinterpret_cast<void***>(pObject);
 	}
 
-	template <typename TReturn, typename ...TArguments>
-	static inline TReturn Call(void* pObject, std::uintptr_t lIndex, TArguments ...Arguments)
+	template <typename TReturn, typename... TArguments>
+	static inline TReturn Call(void* pObject, std::uintptr_t lIndex, TArguments&&... Arguments)
 	{
-		return reinterpret_cast<TReturn(__thiscall*)(const void*, decltype(Arguments)...)>(GetVTable(pObject))(pObject, Arguments...);
+		void* pFunction = GetVTable(pObject)[lIndex];
+		auto rFunction = reinterpret_cast<TReturn(__thiscall*)(void*, TArguments...)>(pFunction);
+
+		return rFunction(pObject, std::forward<TArguments>(Arguments)...);
 	}
 }
 
