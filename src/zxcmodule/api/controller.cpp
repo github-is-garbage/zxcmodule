@@ -2,6 +2,7 @@
 #include "../globals.h"
 
 #include "engine/engine.hpp"
+#include "engine/netchannel.hpp"
 
 APIController::APIController()
 {
@@ -16,6 +17,7 @@ void APIController::AddAPI(API* pAPI)
 void APIController::AddAPIs()
 {
 	this->AddAPI((API*)new EngineAPI());
+	this->AddAPI((API*)new NetChannelAPI());
 }
 
 void APIController::Init()
