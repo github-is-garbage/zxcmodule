@@ -1,9 +1,10 @@
 #pragma once
 
+#include <string>
 #include <Valve/Angle.h>
 #include <Valve/Vector.h>
 #include <Valve/VMatrix.h>
-#include <string>
+#include <Valve/INetChannel.h>
 #include <vmt/vmt.hpp>
 
 class IVEngineClient
@@ -19,4 +20,10 @@ public:
 	VPROXY(IsBoxInViewCluster, 32, int, (const Vector& Mins, const Vector& Maxs), Mins, Maxs)
 	VPROXY(CullBox, 33, bool, (const Vector& Mins, const Vector& Maxs), Mins, Maxs)
 	VPROXY(WorldToScreenMatrix, 36, VMatrix&, (void))
+	VPROXY(GetNetChannelInfo, 72, INetChannelInfo*, (void))
+
+	INetChannel* GetNetChannel()
+	{
+		return (INetChannel*)this->GetNetChannelInfo();
+	}
 };
