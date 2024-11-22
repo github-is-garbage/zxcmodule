@@ -1,8 +1,8 @@
 #pragma once
 
-#include "api.hpp"
+#include "../api.hpp"
 #include <GarrysMod/Lua/Interface.h>
-#include "../globals.h"
+#include "../../globals.h"
 
 LUA_FUNCTION(ShouldDrawBox)
 {
