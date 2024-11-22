@@ -28,6 +28,23 @@ LUA_FUNCTION(ShouldDrawBox)
 	return 1;
 }
 
+LUA_FUNCTION(ServerCmd)
+{
+	const char* pszCommand = LUA->CheckString(1);
+	bool bReliable = LUA->IsType(2, GarrysMod::Lua::Type::Bool) ? LUA->GetBool(2) : true;
+
+	pGlobals->pPointers->pEngineClient->ServerCmd(pszCommand, bReliable);
+	return 0;
+}
+
+LUA_FUNCTION(ClientCmd)
+{
+	const char* pszCommand = LUA->CheckString(1);
+	pGlobals->pPointers->pEngineClient->ClientCmd(pszCommand);
+
+	return 0;
+}
+
 LUA_FUNCTION(GetLocalPlayerIndex)
 {
 	LUA->PushNumber(pGlobals->pPointers->pEngineClient->GetLocalPlayer());
@@ -108,6 +125,8 @@ public:
 		pGlobals->pLuaInterface->CreateTable();
 		{
 			this->PushCFunction(pGlobals->pLuaInterface, ShouldDrawBox, "ShouldDrawBox");
+			this->PushCFunction(pGlobals->pLuaInterface, ServerCmd, "ServerCmd");
+			this->PushCFunction(pGlobals->pLuaInterface, ClientCmd, "ClientCmd");
 			this->PushCFunction(pGlobals->pLuaInterface, GetLocalPlayerIndex, "GetLocalPlayerIndex");
 			this->PushCFunction(pGlobals->pLuaInterface, GetViewAngles, "GetViewAngles");
 			this->PushCFunction(pGlobals->pLuaInterface, SetViewAngles, "SetViewAngles");
