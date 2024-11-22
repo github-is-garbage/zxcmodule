@@ -10,36 +10,40 @@ namespace VMT
 		return *reinterpret_cast<void***>(pObject);
 	}
 
-	/*
-	*	These are exactly the same except one has TArguments&& and one is TArguments
-	*	The && is needed for methods such as IVEngineClient::GetScreenSize because it uses int&
-	*	But the && will break methods that need regular ints such as INetChannelInfo::GetLatency
-	*	So, shitty compromise with 2 nearly identical methods and 2 macros!
-	*/
-	template <typename TReturn, typename... TArguments>
-	static inline TReturn CallReference(void* pObject, std::uintptr_t lIndex, TArguments&&... Arguments)
+	template <typename T>
+	struct RefWrapper
 	{
-		void* pFunction = GetVTable(pObject)[lIndex];
-		auto rFunction = reinterpret_cast<TReturn(__thiscall*)(void*, TArguments...)>(pFunction);
+		T& ref;
+		explicit RefWrapper(T& r) : ref(r) {}
+	};
 
-		return rFunction(pObject, std::forward<TArguments>(Arguments)...);
+	template <typename T>
+	inline T& UnWrap(RefWrapper<T> wrapper)
+	{
+		return wrapper.ref;
 	}
 
-	template <typename TReturn, typename... TArguments>
-	static inline TReturn Call(void* pObject, std::uintptr_t lIndex, TArguments... Arguments)
+	template <typename T>
+	inline T&& UnWrap(T&& value)
 	{
-		void* pFunction = GetVTable(pObject)[lIndex];
-		auto rFunction = reinterpret_cast<TReturn(__thiscall*)(void*, TArguments...)>(pFunction);
-
-		return rFunction(pObject, std::forward<TArguments>(Arguments)...);
+		return std::forward<T>(value);
 	}
+
+	template <typename ReturnType, typename... TArguments>
+	static inline ReturnType Call(void* pObject, std::uintptr_t lIndex, TArguments&&... Arguments)
+	{
+		using MethodType = ReturnType(__thiscall*)(void*, std::decay_t<TArguments>...);
+
+		void* pMethod = GetVTable(pObject)[lIndex];
+		MethodType vMethod = reinterpret_cast<MethodType>(pMethod);
+
+		return vMethod(pObject, std::forward<TArguments>(Arguments)...);
+	}
+
 }
 
-#define VPROXY_REF(MethodName, Index, ReturnType, Arguments, ...)					\
-	ReturnType MethodName Arguments													\
-	{																				\
-		return VMT::CallReference<ReturnType>((void*)this, Index, ## __VA_ARGS__);	\
-	}
+#define VWRAP(Argument)			\
+	VMT::RefWrapper(Argument)
 
 #define VPROXY(MethodName, Index, ReturnType, Arguments, ...)				\
 	ReturnType MethodName Arguments											\
