@@ -3,9 +3,8 @@
 #include <Valve/Angle.h>
 #include <Valve/Vector.h>
 #include <Valve/VMatrix.h>
-#include <vmt/vmt.hpp>
-
 #include <string>
+#include <vmt/vmt.hpp>
 
 class IVEngineClient
 {
