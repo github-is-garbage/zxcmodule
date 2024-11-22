@@ -34,6 +34,25 @@ LUA_FUNCTION(GetLocalPlayerIndex)
 	return 1;
 }
 
+LUA_FUNCTION(GetViewAngles)
+{
+	QAngle ViewAngles;
+	pGlobals->pPointers->pEngineClient->GetViewAngles(ViewAngles);
+
+	LUA->PushAngle(ViewAngles);
+	return 1;
+}
+
+LUA_FUNCTION(SetViewAngles)
+{
+	LUA->CheckType(1, GarrysMod::Lua::Type::Angle);
+
+	QAngle ViewAngles = LUA->GetAngle(1);
+	pGlobals->pPointers->pEngineClient->SetViewAngles(ViewAngles);
+
+	return 0;
+}
+
 LUA_FUNCTION(GetWorldToScreenMatrix)
 {
 	VMatrix vmWorldToScreen = pGlobals->pPointers->pEngineClient->WorldToScreenMatrix();
@@ -53,6 +72,8 @@ public:
 		{
 			this->PushCFunction(pGlobals->pLuaInterface, ShouldDrawBox, "ShouldDrawBox");
 			this->PushCFunction(pGlobals->pLuaInterface, GetLocalPlayerIndex, "GetLocalPlayerIndex");
+			this->PushCFunction(pGlobals->pLuaInterface, GetViewAngles, "GetViewAngles");
+			this->PushCFunction(pGlobals->pLuaInterface, SetViewAngles, "SetViewAngles");
 			this->PushCFunction(pGlobals->pLuaInterface, GetWorldToScreenMatrix, "GetWorldToScreenMatrix");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
