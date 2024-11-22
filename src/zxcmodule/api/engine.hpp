@@ -62,6 +62,43 @@ LUA_FUNCTION(GetWorldToScreenMatrix)
 	return 1;
 }
 
+LUA_FUNCTION(WorldToScreen)
+{
+	LUA->CheckType(1, GarrysMod::Lua::Type::Vector);
+
+	Vector vWorldPos = LUA->GetVector(1);
+
+	// https://github.com/lua9520/source-engine-2018-hl2_src/blob/master/game/client/view_scene.cpp#L55
+	const VMatrix& vmWorldToScreen = pGlobals->pPointers->pEngineClient->WorldToScreenMatrix();
+
+	float x = vmWorldToScreen[0][0] * vWorldPos.x + vmWorldToScreen[0][1] * vWorldPos.y + vmWorldToScreen[0][2] * vWorldPos.z + vmWorldToScreen[0][3];
+	float y = vmWorldToScreen[1][0] * vWorldPos.x + vmWorldToScreen[1][1] * vWorldPos.y + vmWorldToScreen[1][2] * vWorldPos.z + vmWorldToScreen[1][3];
+	// z = vmWorldToScreen[2][0] * vWorldPos.x + vmWorldToScreen[2][1] * vWorldPos.y + vmWorldToScreen[2][2] * vWorldPos.z + vmWorldToScreen[2][3];
+
+	float flWidth = vmWorldToScreen[3][0] * vWorldPos.x + vmWorldToScreen[3][1] * vWorldPos.y + vmWorldToScreen[3][2] * vWorldPos.z + vmWorldToScreen[3][3];
+
+	if (flWidth >= 0.001f)
+	{
+		float flInvWidth = 1.0f / flWidth;
+
+		x *= flInvWidth;
+		y *= flInvWidth;
+	}
+
+	// Adjust to screen proportion
+	// https://github.com/lua9520/source-engine-2018-hl2_src/blob/master/game/client/cdll_util.cpp#L523
+	int ScreenW, ScreenH;
+	pGlobals->pPointers->pEngineClient->GetScreenSize(ScreenW, ScreenH);
+
+	x = (ScreenW * 0.5) + (x * 0.5 * ScreenW);
+	y = (ScreenH * 0.5) - (y * 0.5 * ScreenH);
+
+	LUA->PushNumber(x);
+	LUA->PushNumber(y);
+
+	return 2;
+}
+
 class EngineAPI : public API
 {
 public:
@@ -75,6 +112,7 @@ public:
 			this->PushCFunction(pGlobals->pLuaInterface, GetViewAngles, "GetViewAngles");
 			this->PushCFunction(pGlobals->pLuaInterface, SetViewAngles, "SetViewAngles");
 			this->PushCFunction(pGlobals->pLuaInterface, GetWorldToScreenMatrix, "GetWorldToScreenMatrix");
+			this->PushCFunction(pGlobals->pLuaInterface, WorldToScreen, "WorldToScreen");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
 	}
