@@ -6,12 +6,14 @@ zxcmodule::zxcmodule(GarrysMod::Lua::ILuaInterface* pLua)
 
 	this->pPointers = new Pointers();
 	this->pAPIController = new APIController();
+	this->pHookController = new HookController();
 }
 
 void zxcmodule::Init()
 {
 	this->pPointers->Init();
 	this->pAPIController->Init();
+	this->pHookController->Init();
 }
 
 void zxcmodule::UnInit()

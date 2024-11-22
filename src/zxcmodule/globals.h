@@ -3,6 +3,7 @@
 #include <GarrysMod/Lua/LuaInterface.h>
 #include "pointers.h"
 #include "api/controller.h"
+#include "hooks/controller.h"
 
 class zxcmodule
 {
@@ -11,6 +12,7 @@ public:
 
 	Pointers* pPointers;
 	APIController* pAPIController;
+	HookController* pHookController;
 
 public:
 	zxcmodule(GarrysMod::Lua::ILuaInterface* pLua);
