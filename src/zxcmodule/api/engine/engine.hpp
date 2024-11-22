@@ -4,6 +4,17 @@
 #include <GarrysMod/Lua/Interface.h>
 #include "../../globals.h"
 
+LUA_FUNCTION(GetScreenSize)
+{
+	int x, y;
+	pGlobals->pPointers->pEngineClient->GetScreenSize(x, y);
+
+	LUA->PushNumber(x);
+	LUA->PushNumber(y);
+
+	return 2;
+}
+
 LUA_FUNCTION(ShouldDrawBox)
 {
 	LUA->CheckType(1, GarrysMod::Lua::Type::Vector);
@@ -130,6 +141,7 @@ public:
 		pGlobals->pLuaInterface->PushString("engine");
 		pGlobals->pLuaInterface->CreateTable();
 		{
+			this->PushCFunction(pGlobals->pLuaInterface, GetScreenSize, "GetScreenSize");
 			this->PushCFunction(pGlobals->pLuaInterface, ShouldDrawBox, "ShouldDrawBox");
 			// this->PushCFunction(pGlobals->pLuaInterface, ServerCmd, "ServerCmd");
 			// this->PushCFunction(pGlobals->pLuaInterface, ClientCmd, "ClientCmd");
