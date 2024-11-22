@@ -14,6 +14,7 @@ public:
 	// VPROXY(ServerCmd, 6, void, (std::string strCommand, bool bReliable = true), strCommand.c_str(), bReliable)
 	// VPROXY(ClientCmd, 7, void, (std::string strCommand), strCommand.c_str())
 	VPROXY(GetLocalPlayer, 12, int, (void))
+	VPROXY(GetLastTimestamp, 15, float, (void))
 	VPROXY(GetViewAngles, 19, void, (QAngle& ViewAngles), ViewAngles)
 	VPROXY(SetViewAngles, 20, void, (QAngle& ViewAngles), ViewAngles)
 	VPROXY(IsBoxInViewCluster, 32, int, (const Vector& Mins, const Vector& Maxs), Mins, Maxs)

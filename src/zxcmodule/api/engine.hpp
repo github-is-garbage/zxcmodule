@@ -51,6 +51,12 @@ LUA_FUNCTION(GetLocalPlayerIndex)
 	return 1;
 }
 
+LUA_FUNCTION(GetLastTimestamp)
+{
+	LUA->PushNumber(pGlobals->pPointers->pEngineClient->GetLastTimestamp());
+	return 1;
+}
+
 LUA_FUNCTION(GetViewAngles)
 {
 	QAngle ViewAngles;
@@ -128,6 +134,7 @@ public:
 			// this->PushCFunction(pGlobals->pLuaInterface, ServerCmd, "ServerCmd");
 			// this->PushCFunction(pGlobals->pLuaInterface, ClientCmd, "ClientCmd");
 			this->PushCFunction(pGlobals->pLuaInterface, GetLocalPlayerIndex, "GetLocalPlayerIndex");
+			this->PushCFunction(pGlobals->pLuaInterface, GetLastTimestamp, "GetLastTimestamp");
 			this->PushCFunction(pGlobals->pLuaInterface, GetViewAngles, "GetViewAngles");
 			this->PushCFunction(pGlobals->pLuaInterface, SetViewAngles, "SetViewAngles");
 			this->PushCFunction(pGlobals->pLuaInterface, GetWorldToScreenMatrix, "GetWorldToScreenMatrix");
