@@ -10,15 +10,21 @@ class Pointers
 {
 public:
 	IVEngineClient* pEngineClient;
+	FARPROC pCBaseClientState_ConnectionStart;
 
 public:
-	template <typename T>
-	T GetInterface(const char* pszModuleName, const char* pszInterfaceName)
+	FARPROC GetAddress(const char* pszModuleName, const char* pszAddressName)
 	{
 		HMODULE hModule = GetModuleHandleA(pszModuleName);
 		if (!hModule) return nullptr;
 
-		FARPROC pAddress = GetProcAddress(hModule, "CreateInterface");
+		return GetProcAddress(hModule, pszAddressName);
+	}
+
+	template <typename T>
+	T GetInterface(const char* pszModuleName, const char* pszInterfaceName)
+	{
+		FARPROC pAddress = GetAddress(pszModuleName, "CreateInterface");
 		if (!pAddress) return nullptr;
 
 		CreateInterfaceFn fnCreateInterface = reinterpret_cast<CreateInterfaceFn>(pAddress);
