@@ -28,6 +28,12 @@ LUA_FUNCTION(ShouldDrawBox)
 	return 1;
 }
 
+LUA_FUNCTION(GetLocalPlayerIndex)
+{
+	LUA->PushNumber(pGlobals->pPointers->pEngineClient->GetLocalPlayer());
+	return 1;
+}
+
 LUA_FUNCTION(GetWorldToScreenMatrix)
 {
 	VMatrix vmWorldToScreen = pGlobals->pPointers->pEngineClient->WorldToScreenMatrix();
@@ -46,6 +52,7 @@ public:
 		pGlobals->pLuaInterface->CreateTable();
 		{
 			this->PushCFunction(pGlobals->pLuaInterface, ShouldDrawBox, "ShouldDrawBox");
+			this->PushCFunction(pGlobals->pLuaInterface, GetLocalPlayerIndex, "GetLocalPlayerIndex");
 			this->PushCFunction(pGlobals->pLuaInterface, GetWorldToScreenMatrix, "GetWorldToScreenMatrix");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
