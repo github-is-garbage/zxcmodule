@@ -36,7 +36,6 @@ public:
 	VPROXY(GetTimeConnected, 3, float, (void))
 	VPROXY(GetDataRate, 5, int, (void))
 
-	VPROXY(IsLoopback, 6, bool, (void))
 	VPROXY(IsTimingOut, 7, bool, (void))
 
 	VPROXY(GetLatency, 9, float, (int iFlow), iFlow)
