@@ -12,6 +12,8 @@ public:
 	APIController();
 
 	void AddAPI(API* pAPI);
+	void AddAPIs();
+
 	void Init();
 	void UnInit();
 };

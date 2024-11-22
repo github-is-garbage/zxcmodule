@@ -1,6 +1,8 @@
 #include "controller.h"
 #include "../globals.h"
 
+#include "engine.hpp"
+
 APIController::APIController()
 {
 	this->apiList = std::vector<API*>();
@@ -11,8 +13,16 @@ void APIController::AddAPI(API* pAPI)
 	this->apiList.push_back(pAPI);
 }
 
+void APIController::AddAPIs()
+{
+	this->AddAPI((API*)new EngineAPI());
+}
+
 void APIController::Init()
 {
+	this->AddAPIs();
+
+	// Push everything
 	GarrysMod::Lua::ILuaInterface* pGlobalLua = pGlobals->pLuaInterface;
 
 	pGlobalLua->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
