@@ -48,8 +48,6 @@ public:
 	VPROXY(GetTotalData, 15, int, (int iFlow), iFlow)
 
 	VPROXY(GetSequenceNr, 16, int, (int iFlow), iFlow)
-
-	VPROXY(GetTimeoutSeconds, 25, float, (void))
 };
 
 class INetChannel : public INetChannelInfo
