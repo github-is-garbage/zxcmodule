@@ -5,7 +5,7 @@
 #include <Valve/Vector.h>
 #include <Valve/VMatrix.h>
 #include <Valve/INetChannel.h>
-#include <vmt/vmt.hpp>
+#include <memory/vmt.hpp>
 
 class IVEngineClient
 {

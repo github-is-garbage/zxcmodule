@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <vmt/vmt.hpp>
+#include <memory/vmt.hpp>
 
 class INetChannelInfo
 {
