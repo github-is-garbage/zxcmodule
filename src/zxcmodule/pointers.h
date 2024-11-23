@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <Valve/Interfaces.h>
 #include <Valve/IVEngineClient.h>
+#include <Valve/IClientState.h>
 
 typedef void *(*CreateInterfaceFn)(const char*, int*);
 
@@ -10,7 +11,7 @@ class Pointers
 {
 public:
 	IVEngineClient* pEngineClient;
-	FARPROC pCBaseClientState_ConnectionStart;
+	CClientState* pClientState;
 
 public:
 	FARPROC GetAddress(const char* pszModuleName, const char* pszAddressName)

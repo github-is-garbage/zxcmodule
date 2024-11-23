@@ -10,3 +10,8 @@ public:
 	INetChannel* m_pNetChannel;
 
 };
+
+class CClientState : public CBaseClientState
+{
+public:
+};
