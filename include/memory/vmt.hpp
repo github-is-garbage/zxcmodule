@@ -40,6 +40,10 @@ namespace VMT
 		return vMethod(pObject, std::forward<TArguments>(Arguments)...);
 	}
 
+	static char* GetMethodPointerAt(char*** pObject, std::uintptr_t lIndex)
+	{
+		return (*pObject)[lIndex];
+	}
 }
 
 #define VWRAP(Argument)			\
