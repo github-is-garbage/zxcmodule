@@ -21,6 +21,7 @@ public:
 	VPROXY(CullBox, 33, bool, (const Vector& Mins, const Vector& Maxs), VWRAP(Mins), VWRAP(Maxs))
 	VPROXY(WorldToScreenMatrix, 36, VMatrix&, (void))
 	VPROXY(GetNetChannelInfo, 72, INetChannelInfo*, (void))
+	VPROXY(IsPaused, VENGINE_CLIENT_ISPAUSED_OFFSET, bool, (void))
 
 	INetChannel* GetNetChannel()
 	{
