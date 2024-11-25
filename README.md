@@ -33,6 +33,9 @@ Returns the current view angles
 `void SetViewAngles(Angle ViewAngles)` \
 Sets your view angles
 
+`VMatrix GetWorldToScreenMatrix()` \
+Returns a copy of the world to screen matrix
+
 `int, int WorldToScreen(Vector WorldPos)` \
 Translates a Vector from world space to screen space and returns the X and Y position \
 More performant alternative to Vector:ToScreen()
