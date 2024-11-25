@@ -1,7 +1,7 @@
 # zxcmodule
 
 Garry's Mod "utility" Lua module for the x86-64 branch \
-Revamped for usage with IdiotBox
+Revamped for usage with [IdiotBox](https://github.com/bhozz01/IdiotBox)
 
 Original author: D3D9C \
 Recoded by me!! :^)
