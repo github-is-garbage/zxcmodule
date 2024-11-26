@@ -21,6 +21,6 @@ public:
 		this->z = z;
 	}
 
-	float operator[](int i) const;
-	float& operator[](int i);
+	float operator[](int i) const { return ((float*)this)[i]; }
+	float& operator[](int i) { return ((float*)this)[i]; }
 };
