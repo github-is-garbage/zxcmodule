@@ -44,6 +44,12 @@ namespace VMT
 	{
 		return (*pObject)[lIndex];
 	}
+
+	template <typename Type>
+	static inline Type* GetVarAt(void* pObject, std::uintptr_t lIndex)
+	{
+		return reinterpret_cast<Type*>(reinterpret_cast<std::uintptr_t>(pObject) + lIndex);
+	}
 }
 
 #define VWRAP(Argument)			\
@@ -53,4 +59,10 @@ namespace VMT
 	ReturnType MethodName Arguments											\
 	{																		\
 		return VMT::Call<ReturnType>((void*)this, Index, ## __VA_ARGS__);	\
+	}
+
+#define PROXYVAR(MethodName, Type, Index)	\
+	Type* MethodName()										\
+	{															\
+		return VMT::GetVarAt<Type>(this, Index);		\
 	}
