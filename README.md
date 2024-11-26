@@ -116,3 +116,21 @@ Will be the same as LocalPlayer index in most cases
 
 `int GetMaxPlayers()` \
 Returns the maximum amount of players the server can have
+
+`int GetLastOutgoingCommand()` \
+Returns most recently sent outgoing command number
+
+`int GetChokedCommands()` \
+Returns the amount of choked commands
+
+`void SetChokedCommands(int Amount)` \
+Sets the amount of choked commands \
+Works best when used with GetChokedCommands
+
+`int GetLastAcknowledgedCommand()` \
+Returns previously server acknowledged command number \
+Under ideal conditions this will be the same as GetCurrentAcknowledgedCommand
+
+`int GetCurrentAcknowledgedCommand()` \
+Returns currently acknowledged command number \
+Under ideal conditions this will be the same as GetLastAcknowledgedCommand
