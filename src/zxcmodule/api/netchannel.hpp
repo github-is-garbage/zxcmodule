@@ -139,6 +139,12 @@ LUA_FUNCTION(ShutDown)
 	return 0;
 }
 
+LUA_FUNCTION(SetChoked)
+{
+	pGlobals->pPointers->pEngineClient->GetNetChannel()->SetChoked();
+	return 0;
+}
+
 class NetChannelAPI : public API
 {
 public:
@@ -170,6 +176,7 @@ public:
 			this->PushCFunction(pGlobals->pLuaInterface, GetSequenceNumber, "GetSequenceNumber");
 			this->PushCFunction(pGlobals->pLuaInterface, SetSequenceNumber, "SetSequenceNumber");
 			this->PushCFunction(pGlobals->pLuaInterface, ShutDown, "ShutDown");
+			this->PushCFunction(pGlobals->pLuaInterface, SetChoked, "SetChoked");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
 	}

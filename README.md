@@ -102,6 +102,10 @@ Best used when combined with GetSequenceNumber
 `void ShutDown(string Reason)` \
 Disconnects with a customizable reason
 
+`void SetChoked()` \
+Tells the netchannel to choke without actually choking \
+Engine implementation can be found [here](https://github.com/lua9520/source-engine-2018-hl2_src/blob/master/engine/net_chan.cpp#L954)
+
 ### ClientState
 
 `float GetNextCommandTime()` \

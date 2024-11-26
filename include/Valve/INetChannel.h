@@ -56,6 +56,8 @@ class INetChannel : public INetChannelInfo
 {
 public:
 	VPROXY(SendData, 42, bool, (bf_write& Message, bool bReliable = true), VWRAP(Message), bReliable)
+	VPROXY(SetChoked, 46, void, (void))
+	VPROXY(SendDatagram, 47, int, (bf_write* Message), VWRAP(Message))
 	VPROXY(Transmit, 48, bool, (bool bOnlyReliable = false), bOnlyReliable)
 };
 
