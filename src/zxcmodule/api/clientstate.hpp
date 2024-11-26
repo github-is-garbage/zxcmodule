@@ -16,6 +16,18 @@ LUA_FUNCTION(GetDeltaTick)
 	return 1;
 }
 
+LUA_FUNCTION(GetViewEntityIndex)
+{
+	LUA->PushNumber(*pGlobals->pPointers->pClientState->GetViewEntityIndex());
+	return 1;
+}
+
+LUA_FUNCTION(GetMaxPlayers)
+{
+	LUA->PushNumber(*pGlobals->pPointers->pClientState->GetMaxPlayers());
+	return 1;
+}
+
 class ClientStateAPI : public API
 {
 public:
@@ -26,6 +38,8 @@ public:
 		{
 			this->PushCFunction(pGlobals->pLuaInterface, GetNextCommandTime, "GetNextCommandTime");
 			this->PushCFunction(pGlobals->pLuaInterface, GetDeltaTick, "GetDeltaTick");
+			this->PushCFunction(pGlobals->pLuaInterface, GetViewEntityIndex, "GetViewEntityIndex");
+			this->PushCFunction(pGlobals->pLuaInterface, GetMaxPlayers, "GetMaxPlayers");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
 	}
