@@ -69,32 +69,32 @@ Measured in bytes/second. This is usually the same as your `rate` cvar
 `bool IsTimingOut()` \
 Returns whether or not you are timing out
 
-`float GetLatency(Flow)` \
+`float GetLatency(int Flow)` \
 Returns the current latency of the flow
 
-`float GetAvgLatency(Flow)` \
+`float GetAvgLatency(int Flow)` \
 Returns the average latency of the flow over the last second
 
-`float GetAvgLoss(Flow)` \
+`float GetAvgLoss(int Flow)` \
 Returns the average packet loss of the flow over the last second
 
-`float GetAvgChoke(Flow)` \
+`float GetAvgChoke(int Flow)` \
 Returns the average packet choke of the flow over the last second
 
-`float GetAvgData(Flow)` \
+`float GetAvgData(int Flow)` \
 Returns the average data transmission of the flow over the last second \
 Measured in bytes/second
 
-`float GetAvgPackets(Flow)` \
+`float GetAvgPackets(int Flow)` \
 Returns the average number of packets of the flow over the last second
 
-`int GetTotalData(Flow)` \
+`int GetTotalData(int Flow)` \
 Returns the total amount of data transmission of the flow \
 Measured in bytes
 
-`int GetSequenceNumber(Flow)` \
+`int GetSequenceNumber(int Flow)` \
 Returns the sequence number of the flow
 
-`int SetSequenceNumber(Flow, Sequence)` \
+`int SetSequenceNumber(int Flow, int Sequence)` \
 Sets the sequence number of the flow \
 Best used when combined with GetSequenceNumber
