@@ -3,6 +3,7 @@
 
 #include "engine.hpp"
 #include "netchannel.hpp"
+#include "clientstate.hpp"
 
 APIController::APIController()
 {
@@ -18,6 +19,7 @@ void APIController::AddAPIs()
 {
 	this->AddAPI((API*)new EngineAPI());
 	this->AddAPI((API*)new NetChannelAPI());
+	this->AddAPI((API*)new ClientStateAPI());
 }
 
 void APIController::Init()
