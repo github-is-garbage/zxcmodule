@@ -10,6 +10,12 @@ LUA_FUNCTION(GetNextCommandTime)
 	return 1;
 }
 
+LUA_FUNCTION(GetDeltaTick)
+{
+	LUA->PushNumber(*pGlobals->pPointers->pClientState->GetDeltaTick());
+	return 1;
+}
+
 class ClientStateAPI : public API
 {
 public:
@@ -19,6 +25,7 @@ public:
 		pGlobals->pLuaInterface->CreateTable();
 		{
 			this->PushCFunction(pGlobals->pLuaInterface, GetNextCommandTime, "GetNextCommandTime");
+			this->PushCFunction(pGlobals->pLuaInterface, GetDeltaTick, "GetDeltaTick");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
 	}
