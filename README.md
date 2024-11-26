@@ -98,3 +98,6 @@ Returns the sequence number of the flow
 `int SetSequenceNumber(int Flow, int Sequence)` \
 Sets the sequence number of the flow \
 Best used when combined with GetSequenceNumber
+
+`void ShutDown(string Reason)` \
+Disconnects with a customizable reason

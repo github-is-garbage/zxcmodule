@@ -9,6 +9,9 @@ set(CMAKE_GENERATOR_PLATFORM x64)
 file(GLOB_RECURSE SOURCES
 	"src/**.cpp"
 	"src/**/*.cpp"
+
+	"include/**.cpp"
+	"include/**/*.cpp"
 )
 
 file(GLOB_RECURSE HEADERS

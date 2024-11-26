@@ -2,6 +2,7 @@
 
 #include <string>
 #include <Valve/INetworkSystem.h>
+#include <Valve/bitbuf.h>
 #include <memory/vmt.hpp>
 
 class INetChannelInfo
@@ -54,7 +55,8 @@ public:
 class INetChannel : public INetChannelInfo
 {
 public:
-	VPROXY(SendData, 42, bool, (void* message, bool bReliable = true), message, bReliable)
+	VPROXY(SendData, 42, bool, (bf_write& Message, bool bReliable = true), VWRAP(Message), bReliable)
+	VPROXY(Transmit, 48, bool, (bool bOnlyReliable = false), bOnlyReliable)
 };
 
 class CNetChannel : public INetChannel
@@ -62,4 +64,6 @@ class CNetChannel : public INetChannel
 public:
 	PROXYVAR(GetOutgoingSequenceNumber, int, 0x00C)
 	PROXYVAR(GetIncomingSequenceNumber, int, 0x010)
+	PROXYVAR(GetReliableStream, bf_write, 0x025)
+	PROXYVAR(GetUnReliableStream, bf_write, 0x028)
 };

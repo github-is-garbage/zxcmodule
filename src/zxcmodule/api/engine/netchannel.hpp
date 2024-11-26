@@ -1,9 +1,10 @@
 #pragma once
 
 #include "../api.hpp"
-#include <GarrysMod/Lua/Interface.h>
 #include "../../globals.h"
+#include <GarrysMod/Lua/Interface.h>
 #include <Valve/INetChannel.h>
+#include <Valve/protocol.h>
 
 LUA_FUNCTION(GetAddress)
 {
@@ -124,6 +125,20 @@ LUA_FUNCTION(SetSequenceNumber)
 	return 1;
 }
 
+LUA_FUNCTION(ShutDown)
+{
+	const char* pszReason = LUA->CheckString(1);
+
+	bf_write& Stream = *pGlobals->pPointers->pEngineClient->GetNetChannel()->GetUnReliableStream();
+
+	Stream.WriteUBitLong(net_Disconnect, NETMSG_TYPE_BITS);
+	Stream.WriteString(pszReason);
+
+	pGlobals->pPointers->pEngineClient->GetNetChannel()->Transmit();
+
+	return 0;
+}
+
 class NetChannelAPI : public API
 {
 public:
@@ -154,6 +169,7 @@ public:
 			this->PushCFunction(pGlobals->pLuaInterface, GetTotalData, "GetTotalData");
 			this->PushCFunction(pGlobals->pLuaInterface, GetSequenceNumber, "GetSequenceNumber");
 			this->PushCFunction(pGlobals->pLuaInterface, SetSequenceNumber, "SetSequenceNumber");
+			this->PushCFunction(pGlobals->pLuaInterface, ShutDown, "ShutDown");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
 	}
