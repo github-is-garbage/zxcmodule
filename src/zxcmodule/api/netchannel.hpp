@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../api.hpp"
-#include "../../globals.h"
+#include "api.hpp"
+#include "../globals.h"
 #include <GarrysMod/Lua/Interface.h>
 #include <Valve/INetChannel.h>
 #include <Valve/protocol.h>

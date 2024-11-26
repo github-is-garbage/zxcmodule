@@ -1,8 +1,8 @@
 #include "controller.h"
 #include "../globals.h"
 
-#include "engine/engine.hpp"
-#include "engine/netchannel.hpp"
+#include "engine.hpp"
+#include "netchannel.hpp"
 
 APIController::APIController()
 {
