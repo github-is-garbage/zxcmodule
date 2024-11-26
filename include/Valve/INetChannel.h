@@ -60,9 +60,6 @@ public:
 class CNetChannel : public INetChannel
 {
 public:
-	VPROXY(ShutDown, 37, void, (std::string strReason), strReason.c_str())
-
-public:
 	PROXYVAR(GetOutgoingSequenceNumber, int, 0x00C)
 	PROXYVAR(GetIncomingSequenceNumber, int, 0x010)
 };
