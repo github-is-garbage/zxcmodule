@@ -101,3 +101,18 @@ Best used when combined with GetSequenceNumber
 
 `void ShutDown(string Reason)` \
 Disconnects with a customizable reason
+
+### ClientState
+
+`float GetNextCommandTime()` \
+Returns the next time you will be able to send a command
+
+`int GetDeltaTick()` \
+Returns the last valid received tick. Same as engine.TickCount()
+
+`int GetViewEntityIndex()` \
+Returns the Entity index of the Entity acting as your camera. \
+Will be the same as LocalPlayer index in most cases
+
+`int GetMaxPlayers()` \
+Returns the maximum amount of players the server can have
