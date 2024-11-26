@@ -54,7 +54,7 @@ public:
 class INetChannel : public INetChannelInfo
 {
 public:
-	VPROXY(SendData, 42, bool, (void* message, bool bUnReliable), message, bUnReliable)
+	VPROXY(SendData, 42, bool, (void* message, bool bReliable = true), message, bReliable)
 };
 
 class CNetChannel : public INetChannel
