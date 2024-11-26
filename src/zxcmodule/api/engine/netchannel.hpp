@@ -99,6 +99,31 @@ LUA_FUNCTION(GetSequenceNumber)
 	return 1;
 }
 
+LUA_FUNCTION(SetSequenceNumber)
+{
+	int iFlow = LUA->CheckNumber(1);
+	int iSequenceNumber = LUA->CheckNumber(2);
+
+	INetChannel* pNetChannel = pGlobals->pPointers->pEngineClient->GetNetChannel();
+
+	switch (iFlow)
+	{
+		default:
+			LUA->ThrowError("Invalid network flow in SetSequenceNumber!");
+			break;
+
+		case INetChannelInfo::FLOW_OUTGOING:
+			*pNetChannel->GetOutgoingSequenceNumber() = iSequenceNumber;
+			break;
+
+		case INetChannelInfo::FLOW_INCOMING:
+			*pNetChannel->GetIncomingSequenceNumber() = iSequenceNumber;
+			break;
+	}
+
+	return 1;
+}
+
 class NetChannelAPI : public API
 {
 public:
@@ -128,6 +153,7 @@ public:
 			this->PushCFunction(pGlobals->pLuaInterface, GetAvgPackets, "GetAvgPackets");
 			this->PushCFunction(pGlobals->pLuaInterface, GetTotalData, "GetTotalData");
 			this->PushCFunction(pGlobals->pLuaInterface, GetSequenceNumber, "GetSequenceNumber");
+			this->PushCFunction(pGlobals->pLuaInterface, SetSequenceNumber, "SetSequenceNumber");
 		}
 		pGlobals->pLuaInterface->RawSet(-3);
 	}

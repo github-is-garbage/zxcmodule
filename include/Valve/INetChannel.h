@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <Valve/INetworkSystem.h>
 #include <memory/vmt.hpp>
 
 class INetChannelInfo
@@ -21,7 +22,7 @@ public:
 		MOVE,
 		STRINGCMD,
 		SIGNON,
-		TOTAL,
+		TOTAL
 	};
 
 	enum
@@ -54,4 +55,8 @@ class INetChannel : public INetChannelInfo
 {
 public:
 	VPROXY(ShutDown, 37, void, (std::string strReason), strReason.c_str())
+
+public:
+	PROXYVAR(GetOutgoingSequenceNumber, int, 0x00C)
+	PROXYVAR(GetIncomingSequenceNumber, int, 0x010)
 };
