@@ -61,8 +61,8 @@ namespace VMT
 		return VMT::Call<ReturnType>((void*)this, Index, ## __VA_ARGS__);	\
 	}
 
-#define PROXYVAR(MethodName, Type, Index)	\
-	Type* MethodName()										\
-	{															\
-		return VMT::GetVarAt<Type>(this, Index);		\
+#define PROXYVAR(MethodName, Type, Index)			\
+	Type* MethodName()								\
+	{												\
+		return VMT::GetVarAt<Type>(this, Index);	\
 	}
