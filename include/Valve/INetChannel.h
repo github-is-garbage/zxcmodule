@@ -62,8 +62,8 @@ public:
 class CNetChannel : public INetChannel
 {
 public:
-	PROXYVAR(GetOutgoingSequenceNumber, int, 0x00C)
-	PROXYVAR(GetIncomingSequenceNumber, int, 0x010)
-	PROXYVAR(GetReliableStream, bf_write, 0x025)
-	PROXYVAR(GetUnReliableStream, bf_write, 0x028)
+	PROXYVAR(GetOutgoingSequenceNumber, int, 0x000C)
+	PROXYVAR(GetIncomingSequenceNumber, int, 0x0010)
+	PROXYVAR(GetReliableStream, bf_write, 0x0025)
+	PROXYVAR(GetUnReliableStream, bf_write, 0x0028)
 };
