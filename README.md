@@ -94,3 +94,7 @@ Measured in bytes
 
 `int GetSequenceNumber(Flow)` \
 Returns the sequence number of the flow
+
+`int SetSequenceNumber(Flow, Sequence)` \
+Sets the sequence number of the flow \
+Best used when combined with GetSequenceNumber
