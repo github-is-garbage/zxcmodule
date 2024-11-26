@@ -23,8 +23,8 @@ public:
 	VPROXY(GetNetChannelInfo, 72, INetChannelInfo*, (void))
 	VPROXY(IsPaused, VENGINE_CLIENT_ISPAUSED_OFFSET, bool, (void))
 
-	INetChannel* GetNetChannel()
+	CNetChannel* GetNetChannel()
 	{
-		return (INetChannel*)this->GetNetChannelInfo();
+		return (CNetChannel*)this->GetNetChannelInfo();
 	}
 };

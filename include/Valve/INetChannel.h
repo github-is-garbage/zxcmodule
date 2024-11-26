@@ -54,6 +54,12 @@ public:
 class INetChannel : public INetChannelInfo
 {
 public:
+	VPROXY(SendData, 42, bool, (void* message, bool bUnReliable), message, bUnReliable)
+};
+
+class CNetChannel : public INetChannel
+{
+public:
 	VPROXY(ShutDown, 37, void, (std::string strReason), strReason.c_str())
 
 public:

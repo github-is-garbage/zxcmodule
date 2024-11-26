@@ -104,7 +104,7 @@ LUA_FUNCTION(SetSequenceNumber)
 	int iFlow = LUA->CheckNumber(1);
 	int iSequenceNumber = LUA->CheckNumber(2);
 
-	INetChannel* pNetChannel = pGlobals->pPointers->pEngineClient->GetNetChannel();
+	CNetChannel* pNetChannel = pGlobals->pPointers->pEngineClient->GetNetChannel();
 
 	switch (iFlow)
 	{
