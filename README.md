@@ -10,9 +10,12 @@ Recoded by me!! :^)
 
 1. Place `gmcl_zxcmodule_win64.dll` into your `garrysmod/lua/bin` folder (If `bin` does not exist, create it)
 2. In your Lua script, place `require("zxcmodule")` within
-3. Hurray!
+3. The module's APIs can be accessed via either the `zxcmodule` or `idiotbox` global tables
+4. Hurray!
 
 ## Current API
+
+The documentation lists everything as being in the `zxcmodule` table but everything listed is also present within the `idiotbox` table. They are the same exact table, and modifying one will replicate to the other.
 
 ### Engine
 
