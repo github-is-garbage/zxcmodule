@@ -1,0 +1,53 @@
+name: Release module
+
+permissions:
+  actions: read
+  contents: write
+
+on:
+  workflow_run:
+    workflows: ["Build module"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
+
+      - name: Download build artifact
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: build.yml
+          workflow_conclusion: success
+          name: "zxcmodule.zip"
+          path: ./artifact
+
+      - name: Generate release tag
+        run: |
+          TAG_NAME="v$(date +'%Y%m%d-%H%M%S')"
+          echo "New tag: $TAG_NAME"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+      - name: Tag repo
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+      - name: Create release
+        uses: svenstaro/upload-release-action@2.7.0
+        with:
+          tag: ${{ env.TAG_NAME }}
+          repo_name: github-is-garbage/zxcmodule
+          body: "Automatically generated release built by Github Actions"
+          file: ./artifact/gmcl_zxcmodule_win64.dll
+          asset_name: gmcl_zxcmodule_win64.dll
