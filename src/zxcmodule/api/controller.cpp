@@ -4,6 +4,7 @@
 #include "engine.hpp"
 #include "netchannel.hpp"
 #include "clientstate.hpp"
+#include "lua.hpp"
 
 APIController::APIController()
 {
@@ -20,6 +21,7 @@ void APIController::AddAPIs()
 	this->AddAPI((API*)new EngineAPI());
 	this->AddAPI((API*)new NetChannelAPI());
 	this->AddAPI((API*)new ClientStateAPI());
+	this->AddAPI((API*)new LuaAPI());
 }
 
 void APIController::Init()
