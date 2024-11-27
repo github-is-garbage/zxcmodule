@@ -11,7 +11,8 @@
 			"defines": [
 				"UNICODE",
 				"_UNICODE",
-				"WIN32_LEAN_AND_MEAN"
+				"WIN32_LEAN_AND_MEAN",
+				"GMOD_ALLOW_LIGHTUSERDATA"
 			],
 			"windowsSdkVersion": "10.0.22621.0",
 			"compilerPath": "C:\\mingw64\\bin\\gcc.exe",

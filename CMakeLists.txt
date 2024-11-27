@@ -31,11 +31,17 @@ set_target_properties(
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-	target_compile_definitions(${PROJECT_NAME} PRIVATE _DEBUG)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE
+		_DEBUG
+		GMOD_ALLOW_LIGHTUSERDATA
+	)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
 	set(CMAKE_CXX_FLAGS_RELEASE "-Os -s")
 
-	target_compile_definitions(${PROJECT_NAME} PRIVATE WIN32_LEAN_AND_MEAN)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE
+		WIN32_LEAN_AND_MEAN
+		GMOD_ALLOW_LIGHTUSERDATA
+	)
 endif()
 
 install(
