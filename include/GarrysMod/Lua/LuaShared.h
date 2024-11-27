@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <memory/vmt.hpp>
 
 class LuaClientDatatableHook;
 class IGet;
@@ -69,12 +70,17 @@ namespace GarrysMod
 			virtual void MountLua( const char * ) = 0;
 			virtual void MountLuaAdd( const char *, const char * ) = 0;
 			virtual void UnMountLua( const char * ) = 0;
-			virtual void SetFileContents( const char *, const char * ) = 0;	
+			virtual void SetFileContents( const char *, const char * ) = 0;
 			virtual void SetLuaFindHook( LuaClientDatatableHook * ) = 0;
 			virtual void FindScripts( const std::string &, const std::string &, std::vector<std::string> & ) = 0;
 			virtual const char *GetStackTraces( ) = 0;
 			virtual void InvalidateCache( const std::string & ) = 0;
 			virtual void EmptyCache( ) = 0;
+
+			// For some reason GetLuaInterface is crashing the game :/
+			PROXYVAR(GetClientLuaInterface, ILuaInterface*, 0x0078)
+			PROXYVAR(GetServerLuaInterface, ILuaInterface*, 0x0080)
+			PROXYVAR(GetMenuLuaInterface, ILuaInterface*, 0x0088)
 		};
 	}
 }
