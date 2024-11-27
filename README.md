@@ -138,3 +138,13 @@ Under ideal conditions this will be the same as GetCurrentAcknowledgedCommand
 `int GetCurrentAcknowledgedCommand()` \
 Returns currently acknowledged command number \
 Under ideal conditions this will be the same as GetLastAcknowledgedCommand
+
+### Lua
+
+`bool, any... RunOnClient(string Code, string Identifier = "[C]", bool HandleErrors = true)` \
+Equivalent to RunString on the client state \
+Returns a success boolean and whatever is returned within the code string
+
+`bool, any... RunOnMenu(string Code, string Identifier = "[C]", bool HandleErrors = true)` \
+Equivalent to RunString on the menu state \
+Returns a success boolean and a copy of whatever is returned within the code string
