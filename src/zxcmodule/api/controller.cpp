@@ -31,17 +31,26 @@ void APIController::Init()
 	// Push everything
 	GarrysMod::Lua::ILuaInterface* pGlobalLua = pGlobals->pLuaInterface;
 
+	pGlobalLua->CreateTable();
+	{
+		for (API* pAPI : this->apiList)
+			pAPI->Init();
+	}
+	int iZXCTable = pGlobalLua->ReferenceCreate();
+
 	pGlobalLua->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
 	{
 		pGlobalLua->PushString("zxcmodule");
-		pGlobalLua->CreateTable();
-		{
-			for (API* pAPI : this->apiList)
-				pAPI->Init();
-		}
+		pGlobalLua->ReferencePush(iZXCTable);
+		pGlobalLua->RawSet(-3);
+
+		pGlobalLua->PushString("idiotbox");
+		pGlobalLua->ReferencePush(iZXCTable);
 		pGlobalLua->RawSet(-3);
 	}
 	pGlobalLua->Pop();
+
+	pGlobalLua->ReferenceFree(iZXCTable);
 }
 
 void APIController::UnInit()
