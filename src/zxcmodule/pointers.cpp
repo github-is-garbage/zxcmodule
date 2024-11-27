@@ -6,6 +6,7 @@
 void Pointers::Init()
 {
 	this->pEngineClient = this->GetInterface<IVEngineClient*>("engine.dll", VENGINE_CLIENT_INTERFACE_VERSION);
+	this->pLuaShared = this->GetInterface<GarrysMod::Lua::ILuaShared*>("lua_shared.dll", GMOD_LUASHARED_INTERFACE);
 
 	/*
 		This nabs the CClientState instantiated within the engine by going down the instructions to find the push
