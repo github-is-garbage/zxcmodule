@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Windows.h>
-#include <Valve/Interfaces.h>
+#include <Interfaces.h>
 #include <Valve/IVEngineClient.h>
 #include <Valve/IClientState.h>
 
