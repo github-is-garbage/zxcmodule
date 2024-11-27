@@ -108,6 +108,8 @@ Engine implementation can be found [here](https://github.com/lua9520/source-engi
 
 ### ClientState
 
+Things listed exist within the `zxcmodule.clientstate` global table
+
 `float GetNextCommandTime()` \
 Returns the next time you will be able to send a command
 
@@ -140,6 +142,8 @@ Returns currently acknowledged command number \
 Under ideal conditions this will be the same as GetLastAcknowledgedCommand
 
 ### Lua
+
+Things listed exist within the `zxcmodule.lua` global table
 
 `bool, any... RunOnClient(string Code, string Identifier = "[C]", bool HandleErrors = true)` \
 Equivalent to RunString on the client state \
