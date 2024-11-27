@@ -1,0 +1,45 @@
+name: Build module
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: build-module
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+        with:
+            submodules: recursive
+
+      - name: Setup MinGW
+        uses: msys2/setup-msys2@v2
+        with:
+            msystem: mingw64
+            install: >-
+                mingw-w64-x86_64-gcc
+                mingw-w64-x86_64-cmake
+                make
+
+      - name: Configure and Build
+        run: |
+            cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+            cmake --build build -- -j$(nproc)
+
+      - name: Upload the stuff
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+            name: "zxcmodule.zip"
+            path: ./build/gmcl_zxcmodule_win64.dll
