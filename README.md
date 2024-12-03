@@ -19,11 +19,7 @@ ded.SetSequenceInterpolation(false)
 
 ### Lua API
 - ServerCmd
-- ClientCmd
 - SetViewAngles
-- ExecuteClientCmd
-- RawClientCmdUnrestricted
-- ClientCmdUnrestricted
 - SetRestrictServerCommands
 - SetRestrictClientCommands
 - GetGameDirectory

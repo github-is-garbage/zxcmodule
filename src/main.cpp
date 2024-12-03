@@ -41,13 +41,13 @@ LUA_FUNCTION(ServerCmd) {
 	return 0;
 }
 
-LUA_FUNCTION(ClientCmd) {
-	LUA->CheckString(1);
-
-	interfaces::engineClient->ClientCmd(LUA->GetString(1));
-
-	return 0;
-}
+//LUA_FUNCTION(ClientCmd) {
+//	LUA->CheckString(1);
+//
+//	interfaces::engineClient->ClientCmd(LUA->GetString(1));
+//
+//	return 0;
+//}
 
 LUA_FUNCTION(SetViewAngles) {
 	LUA->CheckType(1, Type::Angle);
@@ -57,29 +57,29 @@ LUA_FUNCTION(SetViewAngles) {
 	return 0;
 }
 
-LUA_FUNCTION(ExecuteClientCmd) {
-	LUA->CheckString(1);
-
-	interfaces::engineClient->ExecuteClientCmd(LUA->GetString(1));
-
-	return 0;
-}
-
-LUA_FUNCTION(RawClientCmdUnrestricted) {
-	LUA->CheckString(1);
-
-	interfaces::engineClient->GMOD_RawClientCmd_Unrestricted(LUA->GetString(1));
-
-	return 0;
-}
-
-LUA_FUNCTION(ClientCmdUnrestricted) {
-	LUA->CheckString(1);
-
-	interfaces::engineClient->ClientCmd_Unrestricted(LUA->GetString(1));
-
-	return 0;
-}
+//LUA_FUNCTION(ExecuteClientCmd) {
+//	LUA->CheckString(1);
+//
+//	interfaces::engineClient->ExecuteClientCmd(LUA->GetString(1));
+//
+//	return 0;
+//}
+//
+//LUA_FUNCTION(RawClientCmdUnrestricted) {
+//	LUA->CheckString(1);
+//
+//	interfaces::engineClient->GMOD_RawClientCmd_Unrestricted(LUA->GetString(1));
+//
+//	return 0;
+//}
+//
+//LUA_FUNCTION(ClientCmdUnrestricted) {
+//	LUA->CheckString(1);
+//
+//	interfaces::engineClient->ClientCmd_Unrestricted(LUA->GetString(1));
+//
+//	return 0;
+//}
 
 LUA_FUNCTION(SetRestrictServerCommands) {
 	LUA->CheckType(1, Type::Bool);
@@ -1028,11 +1028,11 @@ GMOD_MODULE_OPEN() {
 	LUA->PushSpecial(SPECIAL_GLOB);
 	LUA->CreateTable();
 		PushApiFunction("ServerCmd", ServerCmd);
-		PushApiFunction("ClientCmd", ClientCmd);
+		// PushApiFunction("ClientCmd", ClientCmd);
 		PushApiFunction("SetViewAngles", SetViewAngles);
-		PushApiFunction("ExecuteClientCmd", ExecuteClientCmd);
+		/*PushApiFunction("ExecuteClientCmd", ExecuteClientCmd);
 		PushApiFunction("RawClientCmdUnrestricted", RawClientCmdUnrestricted);
-		PushApiFunction("ClientCmdUnrestricted", ClientCmdUnrestricted);
+		PushApiFunction("ClientCmdUnrestricted", ClientCmdUnrestricted);*/
 		PushApiFunction("SetRestrictServerCommands", SetRestrictServerCommands);
 		PushApiFunction("SetRestrictClientCommands", SetRestrictClientCommands);
 		PushApiFunction("GetGameDirectory", GetGameDirectory);
